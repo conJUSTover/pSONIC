@@ -10,7 +10,7 @@ Additionally, one of the most important findings during the genomics era is the 
 Here, we use synteny across multiple species, as well as _a priori_ knowledge of ploidy differences between species, to infer a genome-wide set of syntenic orthologs. We combine the outputs of [MCScanX](https://github.com/wyp1125/MCScanX) and [OrthoFinder](https://github.com/davidemms/OrthoFinder) to create a genome-wide set of syntenic orthologs. Details on how pSONIC operates can be found in the manuscript or [preprint](). 
 
 ### Getting Started with pSONIC 
-pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/). pSONIC was tested using igraph v0.8.3.  
+pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/)). pSONIC was tested using igraph v0.8.3.  
 
 #### Options for running pSONIC 
 
