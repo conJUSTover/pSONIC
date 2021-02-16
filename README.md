@@ -12,7 +12,7 @@ Here, we use synteny across multiple species, as well as _a priori_ knowledge of
 ### Getting Started with pSONIC 
 pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/). pSONIC was tested using igraph v0.8.3.  
 
-####Options for running pSONIC: 
+#### Options for running pSONIC: 
 
 ```
 python3 ../../pSONIC.py -h 
@@ -95,7 +95,7 @@ Now that we have all our needed files in the same directory, let's run pSONIC as
 python3 pSONIC.py <PREFIX>
 ```
 
-You can use the [optional flags]() to change the settings and input files needed for pSONIC. If there is a polyploidy event anywhere betwen any of your species in the analysis, be sure to provide the `-p` flag.     
+You can use the [optional flags](#Options-for-running-pSONIC:) to change the settings and input files needed for pSONIC. If there is a polyploidy event anywhere betwen any of your species in the analysis, be sure to provide the `-p` flag.     
 
 
 ## Output Files of pSONIC   
