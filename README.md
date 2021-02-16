@@ -48,7 +48,7 @@ optional arguments:
 ```
 
 
-#### Running pSONIC for the first time 
+### Running pSONIC for the first time 
 ---
 
 __1. Install and run OrthoFinder on your species of interest__    
