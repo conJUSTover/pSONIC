@@ -68,9 +68,9 @@ The gff file should have four tab-separated columns:
 
 `Sp##	Start_POS End_POS 	GeneID`    
 
-_Sp##__ is a two-letter code for each species, followed by the chromosome number (e.g. At01)    
-_Start\_POS_ and _End\_POS_ are the beginning of end of the gene sequence on it's chromosome (i.e. columns 4 and 5 in .gff3 formatted files)     
-_GeneID_ is a unique name for each gene in the fasta files given to OrthoFinder.     
+__"Sp##"__ is a two-letter code for each species, followed by the chromosome number (e.g. At01)    
+__"Start\_POS"__ and __"End\_POS"__ are the beginning of end of the gene sequence on it's chromosome (i.e. columns 4 and 5 in .gff3 formatted files)     
+__"GeneID"__ is a unique name for each gene in the fasta files given to OrthoFinder.     
 **_You should ensure that every gene in the .gff file is represented in the .fasta files, and every gene in the .fasta files is represented in the .gff file._      
 
 This gff file should be named anything other than "<PREFIX>.gff". For demostrative purposes, we will name this file "your\_gff\_file.gff". We first must translate the gene names into the coded names used by OrthoFinder. We can do this using pSONIC. 
