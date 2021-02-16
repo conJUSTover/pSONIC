@@ -60,7 +60,7 @@ Orthogroups.csv
 SequenceIDs.txt
 ```
 
-You should move these files into the same directory, and concatentate all of the Blast files into a single file named \<PREFIX\>.blast (where \<PREFIX\> is any prefix, but must be the same \<PREFIX\> used throughout). 
+You should move these files into the same directory, and concatentate all of the Blast files into a single file named `<PREFIX>.blast` (where `<PREFIX>` is any name, but must be the same `<PREFIX>` used throughout). 
 
 ------
 __2. Prepare files for MCScanX.__     
@@ -71,21 +71,21 @@ The gff file should have four tab-separated columns:
 __"Sp##"__ is a two-letter code for each species, followed by the chromosome number (e.g. At01)    
 __"Start\_POS"__ and __"End\_POS"__ are the beginning of end of the gene sequence on it's chromosome (i.e. columns 4 and 5 in .gff3 formatted files)     
 __"GeneID"__ is a unique name for each gene in the fasta files given to OrthoFinder.     
-**_You should ensure that every gene in the .gff file is represented in the .fasta files, and every gene in the .fasta files is represented in the .gff file._      
+**_You should ensure that every gene in the gff file is represented in the fasta files, and every gene in the fasta files is represented in the gff file._      
 
-This gff file should be named anything other than "\<PREFIX\>.gff". For demostrative purposes, we will name this file "your\_gff\_file.gff". We first must translate the gene names into the coded names used by OrthoFinder. We can do this using pSONIC. 
+This gff file should be named anything other than `<PREFIX>.gff`. For demostrative purposes, we will name this file `your_gff_file.gff`. We first must translate the gene names into the coded names used by OrthoFinder. We can do this using pSONIC. 
 
 To run pSONIC for this step, use the following command:    
 `python pSONIC.py translate_gff <PREFIX> -gff your_gff_file.gff`    
 
-This will create a file called \<PREFIX\>.gff, which is identical to your gff files except that all of the gene names have been replaced by the coded gene names listed in "SequenceIDs.txt". 
+This will create a file called `<PREFIX>.gff`, which is identical to your gff files except that all of the gene names have been replaced by the coded gene names listed in `SequenceIDs.txt`. 
 
 ------
-__3. Run MCScanX.__ MCScanX can be downloaded from [here](https://github.com/wyp1125/MCScanX). You should now two files in your current directory named \<PREFIX\>.gff and \<PREFIX\>.blast. To run MCScanX, be sure that the MCScanX is executable in your $PATH, then run     
+__3. Run MCScanX.__ MCScanX can be downloaded from [here](https://github.com/wyp1125/MCScanX). You should now two files in your current directory named `<PREFIX>.gff` and `<PREFIX>.blast`. To run MCScanX, be sure that the MCScanX is executable in your `$PATH`, then run     
 ```
 MCScanX -b 2 <PREFIX>
 ```
-This runs MCScanX on only interspecific comparisons (-b 2), which will greatly improve the speed of pSONIC. (__NOTE__: If there is a polyploidy event anywhere between any of your species in the anaysis, then run MCScanX without the "-b 2" flag to include intra-specific comparisons)
+This runs MCScanX on only interspecific comparisons (`-b 2`), which will greatly improve the speed of pSONIC. (__NOTE__: If there is a polyploidy event anywhere between any of your species in the anaysis, then run MCScanX without the `-b 2` flag to include intra-specific comparisons)
 
 
 ------     
@@ -108,7 +108,7 @@ __pSONIC.GroupSize.csv__:   A tab-delimimted file describing how many genes from
 __pSONIC.RawGroups.txt__:  A file with six columns, each row describes a different collinear groups identified by MCScanX. The six columns include total collinearity group length, number of gene pairs with "PASS" scores, number of gene pairs with "NOT PASS" scores, number of "No Call" scores, the pattern of every gene pair's calls along the collinear group, and the orientation of the collinear group.    
 __pSONIC.GroupsKept.txt__: Describes the collinear blocks that were used for orthogroup construction, after trimming and cutting (see manuscript for details on how these groups are trimmed and cut).   
 __pSONIC.TetherSetsFromOrthoFinder.csv__:  A list of tether sets used to scores gene pairs. These tether sets were identified from OrthoFinder output. See the manuscript for more information about how these tether sets are identified.   
-__pSONIC.EdgeList.txt__:  A list of all of the gene pairs used to create the orthogroups. Each line represents the two genes in the pair, their BLAST score e-value, the orientation of the collinear block they are present on, the score received by pSONIC, the two chromosomes from which the two genes originate, and an index of which collinear group the gene pair is from (i.e. "##Alignment number" in \<PREFIX\>.collinearity output from MCScanX.). Collinear groups ending in ".01", ".02", etc. are split from the original collinear group (groups are split when at least three consecutive gene pairs receive "NOT PASS" scores without a "PASS" in between them.)    
+__pSONIC.EdgeList.txt__:  A list of all of the gene pairs used to create the orthogroups. Each line represents the two genes in the pair, their BLAST score e-value, the orientation of the collinear block they are present on, the score received by pSONIC, the two chromosomes from which the two genes originate, and an index of which collinear group the gene pair is from (i.e. "##Alignment number" in `<PREFIX>.collinearity` output from MCScanX.). Collinear groups ending in ".01", ".02", etc. are split from the original collinear group (groups are split when at least three consecutive gene pairs receive "NOT PASS" scores without a "PASS" in between them.)    
 __pSONIC.EdgesToTrim.txt__: A list of all the gene pairs that were trimmed from the ends of all collinear blocks.   
 __pSONIC.TandemCheck.csv__: A tab-delimited file describing how many genes (or tandemly duplicated gene sets) are present in each Orthogroup. Ideally, the value for each species should be 1 (or equal to the relative ploidy specified in the file provide using the '-p' flag).    
  
