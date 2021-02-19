@@ -7,7 +7,7 @@ One of the first steps in comparative genomics studies is to create a compreheni
 
 Additionally, one of the most important findings during the genomics era is the ubiquity of whole genome duplications (WGD) across the tree of life, especially in plants. All plant species have a history of WGD in their evolutionary histories, and inference of orthology is complicated among plants with different histories of WGD as it disrupts the 1:1 expectation of orthologs between two species. 
 
-Here, we use synteny across multiple species, as well as _a priori_ knowledge of ploidy differences between species, to infer a genome-wide set of syntenic orthologs. We combine the outputs of [MCScanX](https://github.com/wyp1125/MCScanX) and [OrthoFinder](https://github.com/davidemms/OrthoFinder) to create a genome-wide set of syntenic orthologs. Details on how pSONIC operates can be found in the manuscript or [preprint](). 
+Here, we use synteny across multiple species, as well as _a priori_ knowledge of ploidy differences between species, to infer a genome-wide set of syntenic orthologs. We combine the outputs of [MCScanX](https://github.com/wyp1125/MCScanX) and [OrthoFinder](https://github.com/davidemms/OrthoFinder) to create a genome-wide set of syntenic orthologs. Details on how pSONIC operates can be found in the [preprint](https://www.biorxiv.org/content/10.1101/2021.02.18.431864v1). 
 
 ### Getting Started with pSONIC 
 pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/)). pSONIC was tested using igraph v0.8.3.  
@@ -76,7 +76,7 @@ __"GeneID"__ is a unique name for each gene in the fasta files given to OrthoFin
 This gff file should be named anything other than `<PREFIX>.gff`. For demostrative purposes, we will name this file `your_gff_file.gff`. We first must translate the gene names into the coded names used by OrthoFinder. We can do this using pSONIC. 
 
 To run pSONIC for this step, use the following command:    
-`python pSONIC.py translate_gff <PREFIX> -gff your_gff_file.gff`    
+`python pSONIC.py <PREFIX> translate_gff -gff your_gff_file.gff`    
 
 This will create a file called `<PREFIX>.gff`, which is identical to your gff files except that all of the gene names have been replaced by the coded gene names listed in `SequenceIDs.txt`. 
 
