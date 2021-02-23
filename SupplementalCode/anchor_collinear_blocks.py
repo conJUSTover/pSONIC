@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#usage: .py <out_directory> Shit-a-logs_singletons_predicted.csv Shit-a-logs_EdgeList.csv Shit-a-logs_edges_to_trim.csv Shit-a-logs_out.untranslated.csv *.html
+#usage: .py <out_directory> pSONIC.TetherSetsFromOrthoFinder.csv pSONIC.EdgeList.txt pSONIC.EdgesToTrim.txt pSONIC.Untranslated.txt <list_all_html_files>*.html
 
 import sys
 import re

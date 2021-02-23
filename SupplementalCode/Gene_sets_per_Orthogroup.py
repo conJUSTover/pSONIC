@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-"""Usage: .py <prefix> 
-Also must have files named Orthogroups.csv, all.gff, all.tandem in currect directory."""
+"""Usage: .py <prefix> <threads> 
+Also must have files named Orthogroups.csv, <prefix>.gff, <prefix>.tandem in currect directory."""
 
 
 
