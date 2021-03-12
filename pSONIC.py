@@ -323,10 +323,12 @@ def translate(gff, prefix, seqIDs):
         for line in handle:
             line = line.strip().split("\t")
             line[1] = gene_code[line[1]]
-            output.append("\t".join(line))
-    output = sorted(output, key = lambda x: (x[0], int(x[2])))
+            output.append(line)
+    output = sorted(output, key = lambda x: (x[0], int(float(x[2]))))
     with open(prefix + ".gff", "w") as handle:
-        for l in output: handle.write('%s\n' % l)
+        for l in output: 
+            j = "\t".join(l)
+            handle.write('%s\n' % j)
 
 def main(prefix, orthogroups, threads, ploidies, sequenceIDs):
     print("Starting pSONIC")
