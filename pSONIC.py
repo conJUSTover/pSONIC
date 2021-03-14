@@ -230,7 +230,7 @@ def print_ortho_process(group, species_num, code_dict, tandem_net, tandem_list):
     orthogroup = []
     trans_orthogroup = []
     for s in range(species_num):
-        j = [n for n in group if n.startswith(str(s))]
+        j = [n for n in group if n.split('_')[0] == str(s)]
         size.append(str(len(j)))
         orthogroup.append(','.join(j))
         group = [gene for gene in group if gene not in j]
