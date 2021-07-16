@@ -66,7 +66,7 @@ You should move these files into the same directory, and concatentate all of the
 __2. Prepare files for MCScanX.__     
 The gff file should have four tab-separated columns:  
 
-`Sp##	Start_POS End_POS 	GeneID`    
+`Sp##	GeneID	Start_POS	End_POS`    
 
 __"Sp##"__ is a two-letter code for each species, followed by the chromosome number (e.g. At01)    
 __"Start\_POS"__ and __"End\_POS"__ are the beginning of end of the gene sequence on it's chromosome (i.e. columns 4 and 5 in .gff3 formatted files)     
