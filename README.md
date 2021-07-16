@@ -1,5 +1,5 @@
 # pSONIC: Ploidy-aware Syntenic Orthologous Networks Identified via Collinearity
-The repository serves as a public and official hosting of the pSONIC program (Conover et al., in review). If you have any questions regarding the implementation or running of pSONIC, please submit an issue on GitHub. 
+The repository serves as a public and official hosting of the pSONIC program (Conover et al., in review). If you have any questions regarding the implementation or running of pSONIC, please submit an issue on GitHub. Details on how pSONIC operates can be found in the [BioRxiv preprint](https://www.biorxiv.org/content/10.1101/2021.02.18.431864v1). 
 
 ---
 ## pSONIC is a tool for identifying Orthologs between multiple species, even when polyploidy is involved.    
@@ -7,10 +7,10 @@ One of the first steps in comparative genomics studies is to create a compreheni
 
 Additionally, one of the most important findings during the genomics era is the ubiquity of whole genome duplications (WGD) across the tree of life, especially in plants. All plant species have a history of WGD in their evolutionary histories, and inference of orthology is complicated among plants with different histories of WGD as it disrupts the 1:1 expectation of orthologs between two species. 
 
-Here, we use synteny across multiple species, as well as _a priori_ knowledge of ploidy differences between species, to infer a genome-wide set of syntenic orthologs. We combine the outputs of [MCScanX](https://github.com/wyp1125/MCScanX) and [OrthoFinder](https://github.com/davidemms/OrthoFinder) to create a genome-wide set of syntenic orthologs. Details on how pSONIC operates can be found in the [preprint](https://www.biorxiv.org/content/10.1101/2021.02.18.431864v1). 
+Here, we use synteny across multiple species, as well as _a priori_ knowledge of ploidy differences between species, to infer a genome-wide set of syntenic orthologs. We combine the outputs of [MCScanX](https://github.com/wyp1125/MCScanX) and [OrthoFinder](https://github.com/davidemms/OrthoFinder) to create a genome-wide set of syntenic orthologs. 
 
 ### Getting Started with pSONIC 
-pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/)). pSONIC was tested using igraph v0.8.3.  
+pSONIC is a python program that is written and tested using Python v3.7. The only non-standard python package required is the iGraph package (see download and installation instructions [here](https://igraph.org/python/)). pSONIC was tested using igraph v0.8.3. If you are running pSONIC on a HPC, it may be helpful to use a [conda environment](https://conda.io/projects/conda/en/latest/index.html), but given that pSONIC requires only one nonstandard python library, this is not a requirement.   
 
 #### Options for running pSONIC 
 
