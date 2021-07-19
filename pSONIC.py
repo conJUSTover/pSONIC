@@ -29,9 +29,12 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
     singleton_start = time.time()
     print("Starting Singleton Search")
     singletons = []
-    with open(orthogroups_file, "r") as handle: #Orthogroups.csv
+    with open(orthogroups_file, "r") as handle: #Orthogroups.tsv
         first_line = handle.readline().strip() #Species Identifiers
-        species_num = len(first_line.split("\t"))
+        first_line = first.line.split("\t")
+        if first_line[0] == "Orthogroup":
+            fist_line = first_line[1:]
+        species_num = len(first_line)
         if species_ploidy == False or species_ploidy == None:
             species_ploidy = [1] * species_num
         for line in handle: #starting with line 2, go through all of the orthogroups
@@ -402,7 +405,7 @@ def parse_args():
     parser = argparse.ArgumentParser(usage="pSONIC prefix [translate_gff] [-h] [-og ORTHOGROUPS] [-t THREADS] [-p PLOIDY] [-sID SEQUENCEIDS] [-gff GFF]")
     parser.add_argument("prefix", help="PREFIX used to run MCScanX. If used with [translate_gff] argument, resulting file will be [PREFIX].gff. Otherwise, pSONIC expects files with the names [PREFIX].collinearity, [PREFIX].gff, and [PREFIX].tandem to be in current directory.")
     parser.add_argument("translate_gff", help="Only translate gff file to fit gene IDs used by OrthoFinder. Requires [-gff] argument.", nargs='?')
-    parser.add_argument("-og", "--orthogroups", help="Orthogroups output file from OrthoFinder. (Default: %(default)s)", default = "Orthogroups.csv")
+    parser.add_argument("-og", "--orthogroups", help="Orthogroups output file from OrthoFinder. File can either have .tsv extension or .csv (for older versions of OrthoFinder). (Default: %(default)s)", default = "Orthogroups.tsv")
     parser.add_argument("-t", "--threads", default=1, type=int, help="Number of threads to use. (Default: %(default)s)")
     parser.add_argument("-p", "--ploidy", help="Tab-delimited file of relative ploidies for each species, listed in same order as in ORTHOGROUPS file. (Default: All species are diploid with no WGDs in the tree)")
     parser.add_argument("-sID", "--sequenceIDs", help="SequenceIDs.txt file from OrthoFinder. (Default: SequenceIDs.txt)", default="SequenceIDs.txt")

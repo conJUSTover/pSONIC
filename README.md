@@ -34,8 +34,9 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -og ORTHOGROUPS, --orthogroups ORTHOGROUPS
-                        Orthogroups output file from OrthoFinder. (Default:
-                        Orthogroups.csv)
+                        Orthogroups output file from OrthoFinder. File can 
+                        either have .tsv extension or .csv (for older versions 
+                        of OrthoFinder). (Default: Orthogroups.tsv)
   -t THREADS, --threads THREADS
                         Number of threads to use. (Default: 1)
   -p PLOIDY, --ploidy PLOIDY
@@ -60,7 +61,7 @@ You should run OrthoFinder using the '-og' flag (this stops OrthoFinder after th
 
 ```
 Blast*.txt
-Orthogroups.csv
+Orthogroups.tsv (Orthogroups.csv works to, be sure to specify this file using the -og flag)
 SequenceIDs.txt
 ```
 
