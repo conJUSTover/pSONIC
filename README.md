@@ -3,7 +3,7 @@ The repository serves as a public and official hosting of the pSONIC program (Co
 
 If you find pSONIC useful, please cite:
 
-`Justin L Conover, Joel Sharbrough, Jonathan F Wendel, pSONIC: Ploidy-aware Syntenic Orthologous Networks Identified via Collinearity, G3 Genes|Genomes|Genetics, 2021;, jkab170, https://doi.org/10.1093/g3journal/jkab170`
+Justin L Conover, Joel Sharbrough, Jonathan F Wendel, pSONIC: Ploidy-aware Syntenic Orthologous Networks Identified via Collinearity, G3 Genes|Genomes|Genetics, 2021;, jkab170, https://doi.org/10.1093/g3journal/jkab170
 
 ---
 ## pSONIC is a tool for identifying Orthologs between multiple species, even when polyploidy is involved.    
