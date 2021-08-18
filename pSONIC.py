@@ -31,7 +31,7 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
     singletons = []
     with open(orthogroups_file, "r") as handle: #Orthogroups.tsv
         first_line = handle.readline().strip() #Species Identifiers
-        first_line = first.line.split("\t")
+        first_line = first_line.split("\t")
         if first_line[0] == "Orthogroup":
             fist_line = first_line[1:]
         species_num = len(first_line)
