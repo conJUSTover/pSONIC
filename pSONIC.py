@@ -228,14 +228,14 @@ def split_block(group, pn):
     group_Bpn.insert(0, group_Apn)
     return group_B, group_Bpn
 
-def print_ortho_process(group, species_num, code_dict, tandem_net, tandem_list):
+def print_ortho_process(group, spec_num, code_dict, tandem_net, tandem_list):
     group = sorted(group)
     tandem_score = []
     size = []
     orthogroup = []
     trans_orthogroup = []
-    for s in range(species_num):
-        j = [n for n in group if n.split('_')[0] == str(s)]
+    for s in range(len(spec_num)):
+        j = [n for n in group if n.split('_')[0] == spec_num[s]]
         size.append(str(len(j)))
         orthogroup.append(','.join(j))
         group = [gene for gene in group if gene not in j]
@@ -252,8 +252,8 @@ def print_ortho_process(group, species_num, code_dict, tandem_net, tandem_list):
         tandem_score.append(str(group_size))
     return [tandem_score, size, orthogroup, trans_orthogroup] 
     
-def print_orthogroups_quick(network, species_num, code_dict, tandem_net, tandem_list, threads):
-    print_quick = partial(print_ortho_process, species_num=species_num, code_dict=code_dict, tandem_net=tandem_net, tandem_list=tandem_list)
+def print_orthogroups_quick(network, spec_num, code_dict, tandem_net, tandem_list, threads):
+    print_quick = partial(print_ortho_process, spec_num=spec_num, code_dict=code_dict, tandem_net=tandem_net, tandem_list=tandem_list)
     with Pool(processes=threads) as pool:
         result = pool.map(print_quick, network)
     tandem_out = [["OG" + str('{0:07}'.format(i))] + n[0] for i,n in enumerate(result)]
@@ -398,8 +398,6 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
     raw_groups = read_collinearity(prefix + ".collinearity")
     trimmed_edges, raw_groups, edges, good_groups = score_all_blocks(raw_groups, singletons, good_groups, singleton_set, gff_genes, species_nums, gene_names, threads)
 
-    print("\n\n\n\n\nmain finished\n\n\n\n\n")
-
     print("Filtering of Collinear Groups Completed: " + str((time.time() - start_time)/60))
     print_list("pSONIC.GroupsKept.txt", good_groups)
     print_list("pSONIC.EdgeList.txt", [i[:-2] for i in edges]) #don't need 
@@ -412,7 +410,8 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
 
     output.sort(key=len, reverse=True)
 
-    tandem_size, group_size, raw_out, trans_out = print_orthogroups_quick(output, species_num, code_gene, tandem_network, tandem_pairs, threads)
+    tandem_size, group_size, raw_out, trans_out = print_orthogroups_quick(output, species_nums, code_gene, tandem_network, tandem_pairs, threads)
+
     print_list("pSONIC.txt", trans_out)
     print_list("pSONIC.Untranslated.txt", raw_out)
     print_list("pSONIC.TandemCheck.csv", tandem_size) ##need
