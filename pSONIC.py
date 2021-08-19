@@ -36,7 +36,7 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
             fist_line = first_line[1:]
         species_nums = [species_IDs[i] for i in first_line]
         if species_ploidy == False or species_ploidy == None:
-            species_ploidy = [1] * species_num
+            species_ploidy = [1] * len(species_nums)
         for line in handle: #starting with line 2, go through all of the orthogroups
             good_genes = []
             line = line.strip().split("\t") #split orthogroup into species-delimited ortholog sets
@@ -270,20 +270,21 @@ def print_list(outfile, tandem_out):
 def cluster_species(network, spec_num, code_dict, trans_bool):
     #if trans_bool is False, then code_dict has no purpose here
     final_out = []
-    for i in range(spec_num):
-        final_out.append(sorted([n for n in network if n.startswith(str(i))]))
+    for i in range(len(spec_num)):
+#        final_out.append(sorted([n for n in network if n.startswith(str(i))]))
+        final_out.append(sorted([n for n in network if n.split('_')[0] == str(spec_num[i])]))
         if trans_bool:
             #translate edge names into genes
             new_genes = [translate_genes(k, code_dict) for k in final_out[i]]
             final_out[i] = new_genes
     return final_out
 
-def print_network(outfile, all_networks, species_num, code_uncode, translate_bool):
+def print_network(outfile, all_networks, spec_num, code_uncode, translate_bool):
     final_networks = []
     #group edges into species
     for network in all_networks:
         species_network = []
-        ordered_genes = cluster_species(network, species_num, code_uncode, translate_bool)
+        ordered_genes = cluster_species(network, spec_num, code_uncode, translate_bool)
         for i in ordered_genes:
             species_network.append(', '.join(i)) 
         final_networks.append(species_network)       
@@ -379,7 +380,7 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
     singletons = edges_to_groups(singletons, gene_names, threads)
     singletons.sort(key=len, reverse=True)
 
-    print_network("pSONIC.TetherSetsFromOrthoFinder.csv", singletons, species_num, code_gene, False)
+    print_network("pSONIC.TetherSetsFromOrthoFinder.csv", singletons, species_nums, code_gene, False)
 
     gff_genes = []
     for i in gene_names:
