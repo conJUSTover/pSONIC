@@ -25,7 +25,7 @@ def process_group(block, good_bad, good_groups, gff_list):
         return [str(len(block)), str(a_start), str(a_end), str(a_range), str(a_density), str(b_start), str(b_end), str(b_range), str(b_density), block[0][0], block[0][1], block[-1][0], block[-1][1], str(b_density * a_density), str(good_pairs), str(bad_pairs), good_bad]
 
 
-def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, species_ploidy, gene_code):
+def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, species_ploidy, gene_code, species_IDs):
     singleton_start = time.time()
     print("Starting Singleton Search")
     singletons = []
@@ -333,6 +333,19 @@ def translate(gff, prefix, seqIDs):
             j = "\t".join(l)
             handle.write('%s\n' % j)
 
+def load_species(specID):
+    specID_dict = {}
+    with open(specID, "r") as handle:
+        for line in handle:
+            line = line.strip()
+            if line[0] == "#":
+                line = line[1:]
+            line = line.split(": ")
+            spec = line[1].split(".")
+            line[1] = '.'.join(spec[:-1])
+            specID_dict[line[1]] = int(line[0])
+    return specID_dict
+
 def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
     print("Starting pSONIC")
     start_time = time.time()
@@ -358,7 +371,9 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
     for i in tandem_network:
         tandem_pairs += [j for j in i]
 
-    species_num, singletons = SingleCopy_from_Orthofinder(orthogroups, tandem_network, tandem_pairs, ploidies, gene_code)
+    species_dict = load_species(speciesIDs)
+
+    species_nums, singletons = SingleCopy_from_Orthofinder(orthogroups, tandem_network, tandem_pairs, ploidies, gene_code, species_dict)
     print("Tether Sets from OrthoFinder All Found: " + str((time.time() - start_time)/60))
 
     singletons = edges_to_groups(singletons, gene_names, threads)
