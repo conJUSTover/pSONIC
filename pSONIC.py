@@ -34,7 +34,7 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
         first_line = first_line.split("\t")
         if first_line[0] == "Orthogroup":
             fist_line = first_line[1:]
-        species_num = len(first_line)
+        species_nums = [species_IDs[i] for i in first_line]
         if species_ploidy == False or species_ploidy == None:
             species_ploidy = [1] * species_num
         for line in handle: #starting with line 2, go through all of the orthogroups
@@ -52,7 +52,7 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
                 for j in range(1, len(good_genes)):
                     singletons.append([good_genes[j], good_genes[0]])
     print("Initial filtering done: " + str((time.time() - singleton_start)/60))
-    return species_num, singletons
+    return species_nums, singletons
 
 def get_group_size(genes, tandem_net, tandem_list):
     if not genes: return 0, []
