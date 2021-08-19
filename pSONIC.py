@@ -333,7 +333,7 @@ def translate(gff, prefix, seqIDs):
             j = "\t".join(l)
             handle.write('%s\n' % j)
 
-def main(prefix, orthogroups, threads, ploidies, sequenceIDs):
+def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
     print("Starting pSONIC")
     start_time = time.time()
 
@@ -402,7 +402,7 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(usage="pSONIC prefix [translate_gff] [-h] [-og ORTHOGROUPS] [-t THREADS] [-p PLOIDY] [-sID SEQUENCEIDS] [-gff GFF]")
+    parser = argparse.ArgumentParser(usage="pSONIC prefix [translate_gff] [-h] [-og ORTHOGROUPS] [-t THREADS] [-p PLOIDY] [-sID SEQUENCEIDS] [-specID SPECIESIDS] [-gff GFF]")
     parser.add_argument("prefix", help="PREFIX used to run MCScanX. If used with [translate_gff] argument, resulting file will be [PREFIX].gff. Otherwise, pSONIC expects files with the names [PREFIX].collinearity, [PREFIX].gff, and [PREFIX].tandem to be in current directory.")
     parser.add_argument("translate_gff", help="Only translate gff file to fit gene IDs used by OrthoFinder. Requires [-gff] argument.", nargs='?')
     parser.add_argument("-og", "--orthogroups", help="Orthogroups output file from OrthoFinder. File can either have .tsv extension or .csv (for older versions of OrthoFinder). (Default: %(default)s)", default = "Orthogroups.tsv")
@@ -410,6 +410,7 @@ def parse_args():
     parser.add_argument("-p", "--ploidy", help="Tab-delimited file of relative ploidies for each species, listed in same order as in ORTHOGROUPS file. (Default: All species are diploid with no WGDs in the tree)")
     parser.add_argument("-sID", "--sequenceIDs", help="SequenceIDs.txt file from OrthoFinder. (Default: SequenceIDs.txt)", default="SequenceIDs.txt")
     parser.add_argument("-gff", help="GFF file to translate before running MCScanX. Only use with [translate_gff] option.")
+    parser.add_argument("-specID", "--speciesIDs", help="SpeciesIDs.txt file from OrthoFinder. Hashes in first character can be present.", default="SpeciesIDs.txt")
     args = parser.parse_args()
 
     if args.translate_gff:
@@ -419,6 +420,6 @@ def parse_args():
             parser.error("The gff file you want translated has the same file prefix as the MCScanX prefix. Please change the name of this file before proceeding to prevent this file from being overwritten.")
         else: translate(args.gff, args.prefix, args.sequenceIDs)
     else:
-        main(args.prefix, args.orthogroups, args.threads, args.ploidy, args.sequenceIDs)
+        main(args.prefix, args.orthogroups, args.threads, args.ploidy, args.sequenceIDs, args.speciesIDs)
 
 parse_args()
