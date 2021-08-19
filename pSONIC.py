@@ -134,12 +134,12 @@ def read_collinearity(collin_file):
         infile = handle.read().split("## A")
         return infile[1:]
 
-def score_all_blocks(collin_blocks, singleton_groups, good_groups, single_set, gff_list, species_num, gene_notandem, threads):
+def score_all_blocks(collin_blocks, singleton_groups, good_groups, single_set, gff_list, spec_nums, gene_notandem, threads):
     process_start = time.time()
     edges_trimmed = []
     edge_list = []
     raw_stats = []
-    score_part = partial(score_block, singleton_groups=singleton_groups, good_groups=good_groups, single_set=single_set, gff_list=gff_list, species_num=species_num, gene_notandem=gene_notandem)
+    score_part = partial(score_block, singleton_groups=singleton_groups, good_groups=good_groups, single_set=single_set, gff_list=gff_list, spec_nums=spec_nums, gene_notandem=gene_notandem)
     with Pool(processes=threads) as pool:
         scores = pool.map(score_part, collin_blocks)
     scores = [item for item in scores]
@@ -155,7 +155,7 @@ def score_all_blocks(collin_blocks, singleton_groups, good_groups, single_set, g
     print("for loop done: " + str((time.time() - done_time)/60))
     return edges_trimmed, raw_stats, edge_list, good_groups
 
-def score_block(block, singleton_groups, good_groups, single_set, gff_list, species_num, gene_notandem):
+def score_block(block, singleton_groups, good_groups, single_set, gff_list, spec_nums, gene_notandem):
     block = block.strip().split('\n')
     header = block.pop(0).split(' ')
     orientation = header[-1]
@@ -171,8 +171,10 @@ def score_block(block, singleton_groups, good_groups, single_set, gff_list, spec
         singleton_match = test_group(line[1], singleton_groups, single_set)
         if singleton_match:
             #Cluster network here, then see if species has any genes in group
-            clustered_singletons = cluster_species(singleton_match, species_num, False, False)
-            species_id = int(line[2][0])
+            clustered_singletons = cluster_species(singleton_match, spec_nums, False, False)
+            species_pos = line[2].split('_')[0]
+            species_id = spec_nums.index(species_pos)
+#            species_id = int(line[2][0]) ######
             if line[2] in clustered_singletons[species_id]:
                 pos_neg += "G"
             elif not clustered_singletons[species_id]: pos_neg += "-"
@@ -272,7 +274,7 @@ def cluster_species(network, spec_num, code_dict, trans_bool):
     final_out = []
     for i in range(len(spec_num)):
 #        final_out.append(sorted([n for n in network if n.startswith(str(i))]))
-        final_out.append(sorted([n for n in network if n.split('_')[0] == str(spec_num[i])]))
+        final_out.append(sorted([n for n in network if n.split('_')[0] == spec_num[i]]))
         if trans_bool:
             #translate edge names into genes
             new_genes = [translate_genes(k, code_dict) for k in final_out[i]]
@@ -344,7 +346,7 @@ def load_species(specID):
             line = line.split(": ")
             spec = line[1].split(".")
             line[1] = '.'.join(spec[:-1])
-            specID_dict[line[1]] = int(line[0])
+            specID_dict[line[1]] = line[0]
     return specID_dict
 
 def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
@@ -394,7 +396,9 @@ def main(prefix, orthogroups, threads, ploidies, sequenceIDs, speciesIDs):
 
     print("Reading Collinearity File") 
     raw_groups = read_collinearity(prefix + ".collinearity")
-    trimmed_edges, raw_groups, edges, good_groups = score_all_blocks(raw_groups, singletons, good_groups, singleton_set, gff_genes, species_num, gene_names, threads)
+    trimmed_edges, raw_groups, edges, good_groups = score_all_blocks(raw_groups, singletons, good_groups, singleton_set, gff_genes, species_nums, gene_names, threads)
+
+    print("\n\n\n\n\nmain finished\n\n\n\n\n")
 
     print("Filtering of Collinear Groups Completed: " + str((time.time() - start_time)/60))
     print_list("pSONIC.GroupsKept.txt", good_groups)
