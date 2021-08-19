@@ -20,7 +20,7 @@ pSONIC is a python program that is written and tested using Python v3.7. The onl
 
 ```
 python3 ../../pSONIC.py -h 
-usage: pSONIC prefix [translate_gff] [-h] [-og ORTHOGROUPS] [-t THREADS] [-p PLOIDY] [-sID SEQUENCEIDS] [-gff GFF]
+usage: pSONIC prefix [translate_gff] [-h] [-og ORTHOGROUPS] [-t THREADS] [-p PLOIDY] [-sID SEQUENCEIDS] [-specID SPECIESIDS] [-gff GFF]
 
 positional arguments:
   prefix                PREFIX used to run MCScanX. If used with
@@ -50,6 +50,9 @@ optional arguments:
   -gff GFF              GFF file to translate before running MCScanX. Only use
                         with [translate_gff] option.
 
+  -specID SPECIESIDS, --speciesIDs SPECIESIDS
+                        SpeciesIDs.txt file from OrthoFinder. Hashes in first
+                        character can be present.
 ```
 
 
@@ -63,6 +66,7 @@ You should run OrthoFinder using the '-og' flag (this stops OrthoFinder after th
 Blast*.txt
 Orthogroups.tsv (Orthogroups.csv works to, be sure to specify this file using the -og flag)
 SequenceIDs.txt
+SpeciesIDs.txt
 ```
 
 You should move these files into the same directory, and concatentate all of the Blast files into a single file named `<PREFIX>.blast` (where `<PREFIX>` is any name, but must be the same `<PREFIX>` used throughout). 
