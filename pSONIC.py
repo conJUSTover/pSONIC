@@ -32,9 +32,9 @@ def SingleCopy_from_Orthofinder(orthogroups_file, tandem_net, tandem_list, speci
     with open(orthogroups_file, "r") as handle: #Orthogroups.tsv
         first_line = handle.readline().strip() #Species Identifiers
         first_line = first_line.split("\t")
-        if first_line[0] == "Orthogroup":
-            fist_line = first_line[1:]
-        species_nums = [species_IDs[i] for i in first_line]
+        if not first_line[0] in list(species_IDs.keys()):
+            first_line = first_line[1:]
+        species_nums = [species_IDs[i] for i in first_line if species_IDs[i]]
         if species_ploidy == False or species_ploidy == None:
             species_ploidy = [1] * len(species_nums)
         for line in handle: #starting with line 2, go through all of the orthogroups
